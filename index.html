@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <!-- ⬆️ initial-scale=0.8로 모바일에서 전체 사이트 자동 축소 -->
+    <title>매일주식 - AI 추천 종목</title>
+    <style>
+        /* ==================== CSS 변수 (색상 수정 가능) ==================== */
+        :root {
+            --main-color: #0066CC;
+            --defensive-color: #2E7D32;
+            --offensive-color: #D32F2F;
+            --background: #FAFAFA;
+            --card-bg: white;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --border-color: #DDDDDD;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --accent-blue: #0066CC;
+            --accent-green: #2E7D32;
+            --accent-red: #D32F2F;
+        }
+
+        /* ==================== 기본 스타일 ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            letter-spacing: -0.02em;
+        }
+
+        /* ==================== 헤더 ==================== */
+        .header {
+            background: white;
+            color: var(--text-primary);
+            padding: 2rem 1.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .update-time {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .update-badge {
+            background: #F5F5F5;
+            color: var(--text-secondary);
+            padding: 0.3rem 0.9rem;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ==================== 법적 보호 문구 ==================== */
+        .legal-notice {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #856404;
+        }
+
+        /* ==================== 광고 배너 ==================== */
+        .ad-banner {
+            background: #F8F9FA;
+            color: var(--text-primary);
+            padding: 1.8rem;
+            margin: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .ad-banner:hover {
+            background: #F0F1F3;
+            border-color: #CCCCCC;
+        }
+
+        .ad-banner h3 {
+            font-size: 1.15em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ad-banner p {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        /* ==================== 컨테이너 ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* ==================== 탭 버튼 ==================== */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem;
+            background: white;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-button:active {
+            transform: scale(0.98);
+        }
+
+        .tab-button.defensive {
+            border-color: var(--defensive-color);
+            color: var(--defensive-color);
+        }
+
+        .tab-button.offensive {
+            border-color: var(--offensive-color);
+            color: var(--offensive-color);
+        }
+
+        .tab-button.active.defensive {
+            background: var(--defensive-color);
+            color: white;
+        }
+
+        .tab-button.active.offensive {
+            background: var(--offensive-color);
+            color: white;
+        }
+
+        /* ==================== 종목 리스트 ==================== */
+        .stocks-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stock-list {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .list-header.defensive {
+            color: var(--defensive-color);
+            border-bottom-color: var(--defensive-color);
+        }
+
+        .list-header.offensive {
+            color: var(--offensive-color);
+            border-bottom-color: var(--offensive-color);
+        }
+
+        /* ==================== 종목 카드 ==================== */
+        .stock-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .stock-item:last-child {
+            border-bottom: none;
+        }
+
+        .stock-item:hover {
+            background: #f9f9f9;
+        }
+
+        .stock-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rank-badge {
+            font-size: 1.5em;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .stock-info {
+            flex: 1;
+        }
+
+        .stock-name {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: var(--text-primary);
+        }
+
+        .stock-metrics {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9em;
+        }
+
+        .change {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .change.negative {
+            color: #2196F3;
+        }
+
+        .price {
+            color: var(--text-secondary);
+        }
+
+        /* ==================== 상세 이유 (펼침/접기) ==================== */
+        .stock-reason {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .stock-reason.expanded {
+            max-height: 500px;
+            padding: 1.2rem;
+        }
+
+        .reason-content {
+            padding: 0.5rem 0;
+        }
+
+        .reason-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+            font-size: 0.95em;
+        }
+
+        .reason-text {
+            font-size: 0.92em;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        /* ==================== 시장 현황 ==================== */
+        .market-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .market-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .market-name {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .market-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .market-change {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* ==================== 뉴스 섹션 ==================== */
+        .news-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .news-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item:hover {
+            background: #f9f9f9;
+        }
+
+        .news-title {
+            font-weight: 600;
+            font-size: 1em;
+            margin-bottom: 0.3rem;
+            color: var(--text-primary);
+        }
+
+        .news-date {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .news-summary {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .news-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .news-details.expanded {
+            max-height: 800px;
+            padding: 1rem;
+        }
+
+        .analysts-table {
+            width: 100%;
+            margin: 1rem 0;
+            border-collapse: collapse;
+        }
+
+        .analysts-table th,
+        .analysts-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85em;
+        }
+
+        .analysts-table th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .related-stocks {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .stock-tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--main-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        /* ==================== 제휴 섹션 ==================== */
+        .partners-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .partner-card {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: #FAFAFA;
+        }
+
+        .partner-card:hover {
+            background: white;
+            border-color: var(--main-color);
+        }
+
+        /* ==================== 반응형 (모바일) ==================== */
+        @media (max-width: 768px) {
+            .stocks-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: row;
+            }
+
+            .market-status {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 1.6em;
+            }
+
+            .tab-button {
+                min-height: 50px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.5em;
+            }
+
+            .stock-name {
+                font-size: 1em;
+            }
+
+            .tab-button {
+                font-size: 0.9em;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== 헤더 ==================== -->
+    <div class="header">
+        <div class="logo">📈 매일주식</div>
+        <div class="subtitle">AI가 선정한 오늘의 투자 기회</div>
+        <div class="update-time">
+            <span>⏰</span>
+            <span class="update-badge" id="update-time">매일 오전 8:00 업데이트</span>
+        </div>
+    </div>
+
+    <!-- ==================== 법적 보호 문구 ==================== -->
+    <div class="legal-notice">
+        ⚠️ 본 정보는 투자 참고 자료이며, 투자 권유가 아닙니다. 모든 투자 결정과 손익은 투자자 본인의 책임입니다.
+    </div>
+
+    <!-- ==================== 광고 배너 1 ==================== -->
+    <div class="ad-banner">
+        <h3>📢 광고 영역</h3>
+        <p>배너 광고 또는 제휴 광고가 노출됩니다</p>
+    </div>
+
+    <div class="container">
+
+        <!-- ==================== TOP 10 종목 (안정형 | 공격형) ==================== -->
+        <div class="stocks-container">
+            <!-- 안정형 -->
+            <div class="stock-list">
+                <div class="list-header defensive">
+                    🛡️ 안정형 TOP 10
+                </div>
+                <div id="defensive-list"></div>
+            </div>
+
+            <!-- 공격형 -->
+            <div class="stock-list">
+                <div class="list-header offensive">
+                    ⚔️ 공격형 TOP 10
+                </div>
+                <div id="offensive-list"></div>
+            </div>
+        </div>
+
+        <!-- ==================== 광고 배너 2 ==================== -->
+        <div class="ad-banner" style="margin-top: 2rem;">
+            <h3>📢 광고 영역</h3>
+            <p>배너 광고 또는 제휴 광고가 노출됩니다</p>
+        </div>
+
+        <!-- ==================== 시장 현황 ==================== -->
+        <div class="market-status">
+            <div class="market-card">
+                <div class="market-name">코스피</div>
+                <div class="market-value">2,547.82</div>
+                <div class="market-change" style="color: #f44336;">▲ 15.32 (+0.61%)</div>
+            </div>
+            <div class="market-card">
+                <div class="market-name">코스닥</div>
+                <div class="market-value">748.25</div>
+                <div class="market-change" style="color: #2196F3;">▼ 3.18 (-0.42%)</div>
+            </div>
+            <div class="market-card">
+                <div class="market-name">환율 (USD)</div>
+                <div class="market-value">1,332.50</div>
+                <div class="market-change" style="color: #f44336;">▲ 8.20 (+0.62%)</div>
+            </div>
+            <div class="market-card">
+                <div class="market-name">금 (g)</div>
+                <div class="market-value">102,580</div>
+                <div class="market-change" style="color: #f44336;">▲ 450 (+0.44%)</div>
+            </div>
+        </div>
+
+        <!-- ==================== 오늘의 핵심 뉴스 ==================== -->
+        <div class="news-section">
+            <div class="news-header">
+                📰 오늘의 핵심 뉴스
+            </div>
+            <div id="news-list"></div>
+        </div>
+
+        <!-- ==================== 광고 배너 3 ==================== -->
+        <div class="ad-banner">
+            <h3>📢 광고 영역</h3>
+            <p>배너 광고 또는 제휴 광고가 노출됩니다</p>
+        </div>
+
+        <!-- ==================== 제휴 섹션 ==================== -->
+        <div class="partners-section">
+            <h3>🤝 신뢰할 수 있는 파트너</h3>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <strong>한국투자증권</strong>
+                    <p style="font-size: 0.8em; color: #666; margin-top: 0.3rem;">API 연동</p>
+                </div>
+                <div class="partner-card">
+                    <strong>네이버 금융</strong>
+                    <p style="font-size: 0.8em; color: #666; margin-top: 0.3rem;">실시간 시세</p>
+                </div>
+                <div class="partner-card">
+                    <strong>investing.com</strong>
+                    <p style="font-size: 0.8em; color: #666; margin-top: 0.3rem;">글로벌 지표</p>
+                </div>
+                <div class="partner-card">
+                    <strong>포트원</strong>
+                    <p style="font-size: 0.8em; color: #666; margin-top: 0.3rem;">안전한 결제</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* ==================== 데이터 (JSON 형태로 분리) ==================== */
+        /* 🔧 나중에 API 연동 시 이 부분만 fetch()로 교체하면 됩니다! */
+        
+        const stockData = {
+            defensive: [
+                {
+                    rank: 1,
+                    emoji: "🥇",
+                    name: "삼성전자",
+                    change: 2.3,
+                    price: "71,500",
+                    reason: "반도체 업황 개선 신호 + HBM3E 수주 확대 전망. KB증권 목표가 9만원 상향. 미국 AI 투자 확대로 수혜 예상."
+                },
+                {
+                    rank: 2,
+                    emoji: "🥈",
+                    name: "SK하이닉스",
+                    change: 1.8,
+                    price: "142,300",
+                    reason: "HBM3E 독점 공급 계약 체결. 엔비디아 차세대 GPU에 납품 확정. 신한투자 목표가 18만원 제시."
+                },
+                {
+                    rank: 3,
+                    emoji: "🥉",
+                    name: "LG에너지솔루션",
+                    change: 3.1,
+                    price: "385,000",
+                    reason: "미국 IRA 세액공제 수혜 본격화. 북미 공장 가동률 90% 돌파. 2026년 영업이익 2배 증가 전망."
+                },
+                {
+                    rank: 4,
+                    emoji: "4️⃣",
+                    name: "삼성SDI",
+                    change: 2.7,
+                    price: "412,000",
+                    reason: "전고체 배터리 2027년 양산 계획 발표. BMW와 공급 계약 체결. 하나증권 매수 의견 유지."
+                },
+                {
+                    rank: 5,
+                    emoji: "5️⃣",
+                    name: "현대차",
+                    change: 1.5,
+                    price: "254,500",
+                    reason: "미국 판매 20% 증가. 전기차 아이오닉 시리즈 수주량 급증. 배당수익률 4.2%로 매력적."
+                },
+                {
+                    rank: 6,
+                    emoji: "6️⃣",
+                    name: "카카오",
+                    change: 0.8,
+                    price: "48,200",
+                    reason: "카카오페이 IPO 성공 + 광고 매출 회복세. 저평가 구간 진입으로 기관 매수세 유입."
+                },
+                {
+                    rank: 7,
+                    emoji: "7️⃣",
+                    name: "NAVER",
+                    change: 1.2,
+                    price: "187,500",
+                    reason: "AI 검색 하이퍼클로바X 본격 상용화. 일본 라인 분할 이슈 해소. 외국인 순매수 지속."
+                },
+                {
+                    rank: 8,
+                    emoji: "8️⃣",
+                    name: "삼성바이오로직스",
+                    change: 1.9,
+                    price: "892,000",
+                    reason: "위탁생산(CMO) 수주잔고 역대 최대. 4공장 착공으로 생산능력 2배 확대. 실적 가시성 우수."
+                },
+                {
+                    rank: 9,
+                    emoji: "9️⃣",
+                    name: "KB금융",
+                    change: 0.5,
+                    price: "78,100",
+                    reason: "금리 인하기 수혜 예상 + 배당수익률 5% 이상. 부실채권 비율 낮아 안정적."
+                },
+                {
+                    rank: 10,
+                    emoji: "🔟",
+                    name: "기아",
+                    change: 1.1,
+                    price: "112,800",
+                    reason: "미국·유럽 판매 호조. PBV(목적기반차량) 전환 전략 수주 1조원 돌파. 현금흐름 우수."
+                }
+            ],
+            offensive: [
+                {
+                    rank: 1,
+                    emoji: "🥇",
+                    name: "POSCO홀딩스",
+                    change: 4.2,
+                    price: "358,000",
+                    reason: "리튬 가격 반등 + 2차전지 소재 수요 급증. 아르헨티나 염호 개발 본격화. 미래에셋 목표가 45만원."
+                },
+                {
+                    rank: 2,
+                    emoji: "🥈",
+                    name: "에코프로비엠",
+                    change: 6.8,
+                    price: "125,400",
+                    reason: "하이니켈 양극재 점유율 세계 1위. 유럽 공장 가동 시작. 단기 급등 후 조정 마무리, 재진입 타이밍."
+                },
+                {
+                    rank: 3,
+                    emoji: "🥉",
+                    name: "HLB",
+                    change: 5.5,
+                    price: "89,700",
+                    reason: "리보세라닙 미국 FDA 승인 임박. 항암제 파이프라인 10개 이상. 바이오 대장주 반등 신호."
+                },
+                {
+                    rank: 4,
+                    emoji: "4️⃣",
+                    name: "HD현대일렉트릭",
+                    change: 3.9,
+                    price: "412,500",
+                    reason: "AI 데이터센터용 변압기 수요 폭증. 북미 수주잔고 5조원 돌파. 차세대 전력기기 독점 공급."
+                },
+                {
+                    rank: 5,
+                    emoji: "5️⃣",
+                    name: "셀트리온",
+                    change: 2.8,
+                    price: "178,200",
+                    reason: "유플라이마 미국 시장 점유율 확대. 신약 개발 파이프라인 FDA 승인 대기. 실적 턴어라운드 기대."
+                },
+                {
+                    rank: 6,
+                    emoji: "6️⃣",
+                    name: "두산에너빌리티",
+                    change: 4.5,
+                    price: "22,150",
+                    reason: "소형원자로(SMR) 수주 3기 확정. 미국 원전 재가동 정책 수혜. 탄소중립 핵심주."
+                },
+                {
+                    rank: 7,
+                    emoji: "7️⃣",
+                    name: "SK이노베이션",
+                    change: 3.2,
+                    price: "142,000",
+                    reason: "배터리 사업 분할 후 밸류업 기대. 석유화학 마진 개선. 자사주 소각 호재."
+                },
+                {
+                    rank: 8,
+                    emoji: "8️⃣",
+                    name: "LG화학",
+                    change: 2.1,
+                    price: "368,500",
+                    reason: "전지소재 수익성 회복. 바이오 신약 라이센싱 성과. 배터리 사업 분할 밸류업 추진."
+                },
+                {
+                    rank: 9,
+                    emoji: "9️⃣",
+                    name: "SK스퀘어",
+                    change: 5.1,
+                    price: "58,900",
+                    reason: "SK하이닉스 지분가치 상승 수혜. T맵모빌리티 IPO 앞두고 가치 재평가. AI 투자 확대."
+                },
+                {
+                    rank: 10,
+                    emoji: "🔟",
+                    name: "한화오션",
+                    change: 3.7,
+                    price: "45,200",
+                    reason: "LNG선 수주잔고 역대 최대. 미국 해군 잠수함 정비 계약 체결. 방산·조선 동시 수혜."
+                }
+            ]
+        };
+
+        const newsData = [
+            {
+                date: "2026.02.08",
+                title: "삼성전자·SK하이닉스, 美 특허 등록 1·2위 석권",
+                summary: "한국 반도체 기업들이 미국 특허 등록에서 압도적인 성과를 거두며 기술 경쟁력을 입증했습니다. 삼성전자는 4년 연속 1위, SK하이닉스는 HBM 관련 특허 급증으로 2위를 차지했습니다.",
+                analysts: [
+                    { firm: "KB증권", opinion: "매수", target: "90,000원", current: "71,500원" },
+                    { firm: "신한투자", opinion: "매수", target: "180,000원", current: "142,300원" }
+                ],
+                relatedStocks: ["삼성전자", "SK하이닉스", "SK스퀘어"]
+            },
+            {
+                date: "2026.02.07",
+                title: "LG에너지솔루션, 북미 공장 풀가동 본격화",
+                summary: "IRA 세액공제 수혜로 미국 배터리 공장 가동률이 90%를 돌파했습니다. 2026년 영업이익이 전년 대비 2배 증가할 것으로 전망됩니다.",
+                analysts: [
+                    { firm: "메리츠증권", opinion: "매수", target: "450,000원", current: "385,000원" },
+                    { firm: "하나증권", opinion: "매수", target: "420,000원", current: "385,000원" }
+                ],
+                relatedStocks: ["LG에너지솔루션", "삼성SDI", "POSCO홀딩스"]
+            },
+            {
+                date: "2026.02.06",
+                title: "AI 데이터센터 전력수요 급증, 관련주 강세",
+                summary: "글로벌 빅테크의 AI 투자 확대로 전력기기 수요가 폭증하고 있습니다. HD현대일렉트릭이 초대형 변압기 수주에 성공하며 관련주들이 동반 상승했습니다.",
+                analysts: [
+                    { firm: "NH투자증권", opinion: "매수", target: "500,000원", current: "412,500원" }
+                ],
+                relatedStocks: ["HD현대일렉트릭", "LS일렉트릭", "효성중공업"]
+            }
+        ];
+
+        /* ==================== 렌더링 함수 ==================== */
+        function renderStocks(data, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            data.forEach(stock => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'stock-item';
+                itemDiv.innerHTML = `
+                    <div class="stock-header">
+                        <div class="rank-badge">${stock.emoji}</div>
+                        <div class="stock-info">
+                            <div class="stock-name">${stock.name}</div>
+                            <div class="stock-metrics">
+                                <span class="change ${stock.change < 0 ? 'negative' : ''}">
+                                    ${stock.change > 0 ? '▲' : '▼'} ${Math.abs(stock.change)}%
+                                </span>
+                                <span class="price">₩${stock.price}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stock-reason">
+                        <div class="reason-content">
+                            <div class="reason-title">📊 추천 이유</div>
+                            <div class="reason-text">${stock.reason}</div>
+                        </div>
+                    </div>
+                `;
+
+                // 클릭 이벤트: 이유 펼침/접기
+                itemDiv.addEventListener('click', function() {
+                    const reason = this.querySelector('.stock-reason');
+                    const allReasons = container.querySelectorAll('.stock-reason');
+                    
+                    // 다른 항목 닫기
+                    allReasons.forEach(r => {
+                        if (r !== reason) r.classList.remove('expanded');
+                    });
+                    
+                    // 현재 항목 토글
+                    reason.classList.toggle('expanded');
+                });
+
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function renderNews() {
+            const container = document.getElementById('news-list');
+            container.innerHTML = '';
+
+            newsData.forEach(news => {
+                const newsDiv = document.createElement('div');
+                newsDiv.className = 'news-item';
+                newsDiv.innerHTML = `
+                    <div class="news-date">${news.date}</div>
+                    <div class="news-title">${news.title}</div>
+                    <div class="news-summary">${news.summary}</div>
+                    <div class="news-details">
+                        <h4 style="margin-bottom: 0.5rem; color: #2196F3;">💼 증권사 의견</h4>
+                        <table class="analysts-table">
+                            <thead>
+                                <tr>
+                                    <th>증권사</th>
+                                    <th>의견</th>
+                                    <th>목표가</th>
+                                    <th>현재가</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${news.analysts.map(analyst => `
+                                    <tr>
+                                        <td>${analyst.firm}</td>
+                                        <td><strong style="color: #4CAF50;">${analyst.opinion}</strong></td>
+                                        <td>${analyst.target}</td>
+                                        <td>${analyst.current}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        <h4 style="margin: 1rem 0 0.5rem 0; color: #2196F3;">🏢 관련 종목</h4>
+                        <div class="related-stocks">
+                            ${news.relatedStocks.map(stock => `<span class="stock-tag">${stock}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                // 뉴스 클릭 이벤트
+                newsDiv.addEventListener('click', function() {
+                    const details = this.querySelector('.news-details');
+                    const allDetails = container.querySelectorAll('.news-details');
+                    
+                    allDetails.forEach(d => {
+                        if (d !== details) d.classList.remove('expanded');
+                    });
+                    
+                    details.classList.toggle('expanded');
+                });
+
+                container.appendChild(newsDiv);
+            });
+        }
+
+        /* ==================== 초기 로드 ==================== */
+        document.addEventListener('DOMContentLoaded', function() {
+            renderStocks(stockData.defensive, 'defensive-list');
+            renderStocks(stockData.offensive, 'offensive-list');
+            renderNews();
+            updateTimeDisplay();
+        });
+
+        /* ==================== 업데이트 시간 표시 ==================== */
+        function updateTimeDisplay() {
+            const now = new Date();
+            const updateDate = new Date(now);
+            
+            // 현재 시간이 오전 8시 이전이면 전날 8시로 표시
+            if (now.getHours() < 8) {
+                updateDate.setDate(updateDate.getDate() - 1);
+            }
+            
+            updateDate.setHours(8, 0, 0, 0);
+            
+            const year = updateDate.getFullYear();
+            const month = String(updateDate.getMonth() + 1).padStart(2, '0');
+            const day = String(updateDate.getDate()).padStart(2, '0');
+            
+            const timeText = `${year}.${month}.${day} 오전 8:00 업데이트`;
+            document.getElementById('update-time').textContent = timeText;
+        }
+
+        /* ==================== API 연동 예시 (나중에 사용) ==================== */
+        /*
+        async function fetchStockData() {
+            try {
+                const response = await fetch('/api/stocks');
+                const data = await response.json();
+                
+                renderStocks(data.defensive, 'defensive-list');
+                renderStocks(data.offensive, 'offensive-list');
+            } catch (error) {
+                console.error('데이터 로드 실패:', error);
+            }
+        }
+
+        async function fetchNewsData() {
+            try {
+                const response = await fetch('/api/news');
+                const data = await response.json();
+                newsData = data;
+                renderNews();
+            } catch (error) {
+                console.error('뉴스 로드 실패:', error);
+            }
+        }
+
+        // 자동 새로고침 (1시간마다)
+        setInterval(() => {
+            fetchStockData();
+            fetchNewsData();
+        }, 3600000);
+        */
+    </script>
+
+</body>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
