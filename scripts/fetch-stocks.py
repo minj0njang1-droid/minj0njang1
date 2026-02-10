@@ -8,10 +8,30 @@
 import requests
 import json
 import time
+import os
 from datetime import datetime, timezone, timedelta
+
+def safe_int(value):
+    """값을 안전하게 int로 변환"""
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str):
+        return int(value.replace(',', ''))
+    return int(value)
+
+def safe_float(value):
+    """값을 안전하게 float로 변환"""
+    if isinstance(value, float):
+        return value
+    if isinstance(value, str):
+        return float(value.replace(',', ''))
+    return float(value)
 
 def fetch_stock_data():
     """주요 종목의 실시간 주가 데이터를 수집합니다."""
+    
+    # data 폴더 생성
+    os.makedirs('data', exist_ok=True)
     
     # 주요 종목 리스트 (코드, 이름)
     stocks = [
@@ -57,11 +77,11 @@ def fetch_stock_data():
             stock_info = {
                 'code': stock['code'],
                 'name': stock['name'],
-                'price': int(item_data['nv'].replace(',', '')),
-                'change': int(item_data['cv'].replace(',', '')),
-                'changePercent': float(item_data['rf']),
-                'volume': int(item_data['aq'].replace(',', '')),
-                'direction': 'up' if int(item_data['cv'].replace(',', '')) > 0 else ('down' if int(item_data['cv'].replace(',', '')) < 0 else 'flat')
+                'price': safe_int(item_data['nv']),
+                'change': safe_int(item_data['cv']),
+                'changePercent': safe_float(item_data['rf']),
+                'volume': safe_int(item_data['aq']),
+                'direction': 'up' if safe_int(item_data['cv']) > 0 else ('down' if safe_int(item_data['cv']) < 0 else 'flat')
             }
             
             results.append(stock_info)
