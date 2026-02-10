@@ -1,0 +1,46 @@
+name: Daily Stock Update
+
+on:
+  schedule:
+    # 매일 한국 시간 오전 8시 (UTC 23시 = 한국 시간 08시)
+    - cron: '0 23 * * *'
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Fetch stock data
+      run: python scripts/fetch-stocks.py
+    
+    - name: Fetch news
+      run: python scripts/fetch-news.py
+    
+    - name: AI Analysis
+      run: python scripts/analyze-ai.py
+    
+    - name: Update HTML
+      run: python scripts/update-html.py
+    
+    - name: Commit and push changes
+      run: |
+        git config user.name "Daily Stock Bot"
+        git config user.email "bot@dailystock.com"
+        git add .
+        git diff --cached --quiet || git commit -m "🤖 Daily update: $(date +'%Y-%m-%d %H:%M KST')"
+        git push
