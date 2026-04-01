@@ -1,10 +1,10 @@
 {
-  "analyzed": "2026-03-31 23:37:53",
+  "analyzed": "2026-04-01 23:39:47",
   "defensive": [
     {
       "code": "005930",
       "name": "삼성전자",
-      "price": 167200,
+      "price": 189600,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -15,7 +15,7 @@
     {
       "code": "000660",
       "name": "SK하이닉스",
-      "price": 807000,
+      "price": 893000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -26,7 +26,7 @@
     {
       "code": "373220",
       "name": "LG에너지솔루션",
-      "price": 394500,
+      "price": 407000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -37,7 +37,7 @@
     {
       "code": "207940",
       "name": "삼성바이오로직스",
-      "price": 1504000,
+      "price": 1572000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -48,7 +48,7 @@
     {
       "code": "005490",
       "name": "POSCO홀딩스",
-      "price": 332500,
+      "price": 346000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -59,7 +59,7 @@
     {
       "code": "035420",
       "name": "NAVER",
-      "price": 201500,
+      "price": 210000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -70,7 +70,7 @@
     {
       "code": "051910",
       "name": "LG화학",
-      "price": 299000,
+      "price": 312500,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -81,7 +81,7 @@
     {
       "code": "006400",
       "name": "삼성SDI",
-      "price": 408000,
+      "price": 432000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -92,7 +92,7 @@
     {
       "code": "035720",
       "name": "카카오",
-      "price": 45800,
+      "price": 48250,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -103,7 +103,7 @@
     {
       "code": "028260",
       "name": "삼성물산",
-      "price": 253500,
+      "price": 273000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -116,7 +116,7 @@
     {
       "code": "005930",
       "name": "삼성전자",
-      "price": 167200,
+      "price": 189600,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -127,7 +127,7 @@
     {
       "code": "000660",
       "name": "SK하이닉스",
-      "price": 807000,
+      "price": 893000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -138,7 +138,7 @@
     {
       "code": "373220",
       "name": "LG에너지솔루션",
-      "price": 394500,
+      "price": 407000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -149,7 +149,7 @@
     {
       "code": "207940",
       "name": "삼성바이오로직스",
-      "price": 1504000,
+      "price": 1572000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -160,7 +160,7 @@
     {
       "code": "005490",
       "name": "POSCO홀딩스",
-      "price": 332500,
+      "price": 346000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -171,7 +171,7 @@
     {
       "code": "035420",
       "name": "NAVER",
-      "price": 201500,
+      "price": 210000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -182,7 +182,7 @@
     {
       "code": "051910",
       "name": "LG화학",
-      "price": 299000,
+      "price": 312500,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -193,7 +193,7 @@
     {
       "code": "006400",
       "name": "삼성SDI",
-      "price": 408000,
+      "price": 432000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -204,7 +204,7 @@
     {
       "code": "035720",
       "name": "카카오",
-      "price": 45800,
+      "price": 48250,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
@@ -215,7 +215,7 @@
     {
       "code": "028260",
       "name": "삼성물산",
-      "price": 253500,
+      "price": 273000,
       "change": 0,
       "changePercent": 3.0,
       "volume": 0,
