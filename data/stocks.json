@@ -1,186 +1,186 @@
 {
-  "updated": "2026-08-20T23:27:42.928731+00:00",
-  "updatedKST": "2026-08-21 08:27:42",
+  "updated": "2026-08-21T23:26:22.511651+00:00",
+  "updatedKST": "2026-08-22 08:26:22",
   "stocks": [
     {
       "code": "005930",
       "name": "삼성전자",
-      "price": 271000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 281500,
+      "change": 10500,
+      "changePercent": 2.0,
+      "volume": 27672192,
+      "direction": "up"
     },
     {
       "code": "000660",
       "name": "SK하이닉스",
-      "price": 1691000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 1730000,
+      "change": 39000,
+      "changePercent": 2.0,
+      "volume": 4247418,
+      "direction": "up"
     },
     {
       "code": "373220",
       "name": "LG에너지솔루션",
-      "price": 358000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 343500,
+      "change": 14500,
+      "changePercent": 5.0,
+      "volume": 248966,
+      "direction": "up"
     },
     {
       "code": "207940",
       "name": "삼성바이오로직스",
-      "price": 1574000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 1551000,
+      "change": 23000,
+      "changePercent": 5.0,
+      "volume": 44704,
+      "direction": "up"
     },
     {
       "code": "005490",
       "name": "POSCO홀딩스",
-      "price": 321500,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 310000,
+      "change": 11500,
+      "changePercent": 5.0,
+      "volume": 234241,
+      "direction": "up"
     },
     {
       "code": "035420",
       "name": "NAVER",
-      "price": 219500,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 222000,
+      "change": 2500,
+      "changePercent": 2.0,
+      "volume": 987136,
+      "direction": "up"
     },
     {
       "code": "051910",
       "name": "LG화학",
-      "price": 264000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 252500,
+      "change": 11500,
+      "changePercent": 5.0,
+      "volume": 141218,
+      "direction": "up"
     },
     {
       "code": "006400",
       "name": "삼성SDI",
-      "price": 499500,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 478000,
+      "change": 21500,
+      "changePercent": 5.0,
+      "volume": 285743,
+      "direction": "up"
     },
     {
       "code": "035720",
       "name": "카카오",
-      "price": 38700,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 35800,
+      "change": 2900,
+      "changePercent": 5.0,
+      "volume": 10055024,
+      "direction": "up"
     },
     {
       "code": "028260",
       "name": "삼성물산",
-      "price": 374000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 395500,
+      "change": 21500,
+      "changePercent": 2.0,
+      "volume": 584692,
+      "direction": "up"
     },
     {
       "code": "012330",
       "name": "현대모비스",
-      "price": 507000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 496000,
+      "change": 11000,
+      "changePercent": 5.0,
+      "volume": 219337,
+      "direction": "up"
     },
     {
       "code": "066570",
       "name": "LG전자",
-      "price": 202500,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 194500,
+      "change": 8000,
+      "changePercent": 5.0,
+      "volume": 857095,
+      "direction": "up"
     },
     {
       "code": "003550",
       "name": "LG",
-      "price": 110400,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 107700,
+      "change": 2700,
+      "changePercent": 5.0,
+      "volume": 325170,
+      "direction": "up"
     },
     {
       "code": "017670",
       "name": "SK텔레콤",
-      "price": 96600,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 102200,
+      "change": 5600,
+      "changePercent": 2.0,
+      "volume": 2006782,
+      "direction": "up"
     },
     {
       "code": "096770",
       "name": "SK이노베이션",
-      "price": 125900,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 124800,
+      "change": 1100,
+      "changePercent": 5.0,
+      "volume": 424592,
+      "direction": "up"
     },
     {
       "code": "000270",
       "name": "기아",
-      "price": 131100,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 130900,
+      "change": 200,
+      "changePercent": 5.0,
+      "volume": 667262,
+      "direction": "up"
     },
     {
       "code": "005380",
       "name": "현대차",
-      "price": 417500,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 415000,
+      "change": 2500,
+      "changePercent": 5.0,
+      "volume": 371705,
+      "direction": "up"
     },
     {
       "code": "105560",
       "name": "KB금융",
-      "price": 160000,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 164300,
+      "change": 4300,
+      "changePercent": 2.0,
+      "volume": 1150591,
+      "direction": "up"
     },
     {
       "code": "055550",
       "name": "신한지주",
-      "price": 101100,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 104100,
+      "change": 3000,
+      "changePercent": 2.0,
+      "volume": 1059195,
+      "direction": "up"
     },
     {
       "code": "086790",
       "name": "하나금융지주",
-      "price": 123400,
-      "change": 0,
-      "changePercent": 3.0,
-      "volume": 0,
-      "direction": "flat"
+      "price": 128800,
+      "change": 5400,
+      "changePercent": 2.0,
+      "volume": 743883,
+      "direction": "up"
     }
   ]
 }
