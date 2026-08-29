@@ -1,6 +1,6 @@
 {
-  "updated": "2026-08-28T06:49:04.204057+00:00",
-  "updatedKST": "2026-08-28 15:49:04",
+  "updated": "2026-08-29T04:03:36.966114+00:00",
+  "updatedKST": "2026-08-29 13:03:36",
   "stocks": [
     {
       "code": "005930",
@@ -8,7 +8,7 @@
       "price": 257000,
       "change": 9000,
       "changePercent": 5.0,
-      "volume": 14698814,
+      "volume": 14698877,
       "direction": "up"
     },
     {
@@ -17,7 +17,7 @@
       "price": 1653000,
       "change": 77000,
       "changePercent": 5.0,
-      "volume": 2796936,
+      "volume": 2796942,
       "direction": "up"
     },
     {
@@ -26,7 +26,7 @@
       "price": 370000,
       "change": 500,
       "changePercent": 5.0,
-      "volume": 237878,
+      "volume": 237879,
       "direction": "up"
     },
     {
@@ -35,7 +35,7 @@
       "price": 1486000,
       "change": 108000,
       "changePercent": 5.0,
-      "volume": 107485,
+      "volume": 107486,
       "direction": "up"
     },
     {
@@ -53,7 +53,7 @@
       "price": 220500,
       "change": 4000,
       "changePercent": 2.0,
-      "volume": 947494,
+      "volume": 947514,
       "direction": "up"
     },
     {
@@ -71,7 +71,7 @@
       "price": 571000,
       "change": 2000,
       "changePercent": 2.0,
-      "volume": 443227,
+      "volume": 443235,
       "direction": "up"
     },
     {
@@ -80,7 +80,7 @@
       "price": 36850,
       "change": 850,
       "changePercent": 2.0,
-      "volume": 1478610,
+      "volume": 1479432,
       "direction": "up"
     },
     {
@@ -89,7 +89,7 @@
       "price": 375000,
       "change": 500,
       "changePercent": 5.0,
-      "volume": 227515,
+      "volume": 227518,
       "direction": "up"
     },
     {
@@ -98,7 +98,7 @@
       "price": 450500,
       "change": 1000,
       "changePercent": 5.0,
-      "volume": 327009,
+      "volume": 327014,
       "direction": "up"
     },
     {
@@ -107,7 +107,7 @@
       "price": 201500,
       "change": 3200,
       "changePercent": 2.0,
-      "volume": 535632,
+      "volume": 535676,
       "direction": "up"
     },
     {
@@ -125,7 +125,7 @@
       "price": 98600,
       "change": 500,
       "changePercent": 5.0,
-      "volume": 1225339,
+      "volume": 1225347,
       "direction": "up"
     },
     {
@@ -134,7 +134,7 @@
       "price": 116900,
       "change": 4900,
       "changePercent": 2.0,
-      "volume": 1262631,
+      "volume": 1262642,
       "direction": "up"
     },
     {
@@ -152,7 +152,7 @@
       "price": 399500,
       "change": 1500,
       "changePercent": 2.0,
-      "volume": 438254,
+      "volume": 438365,
       "direction": "up"
     },
     {
@@ -170,7 +170,7 @@
       "price": 109700,
       "change": 900,
       "changePercent": 2.0,
-      "volume": 728790,
+      "volume": 728791,
       "direction": "up"
     },
     {
